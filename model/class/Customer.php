@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: greta
- * Date: 27/06/2019
- * Time: 11:05
+ * User: Zede
+ * Date: 22/07/2019
+ * Time: 10:53
  */
 
 class Customer extends Entity

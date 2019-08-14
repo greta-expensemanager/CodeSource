@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Zede
+ * Date: 22/07/2019
+ * Time: 10:53
+ */
 
 function __autoload($className){
     $classDir = 'class/'.$className.'.php';

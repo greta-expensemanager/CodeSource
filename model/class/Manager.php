@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: x_sal
- * Date: 13/06/2019
- * Time: 16:04
+ * User: Zede
+ * Date: 22/07/2019
+ * Time: 10:53
  */
 
 abstract class Manager
