@@ -12,6 +12,13 @@ class Invoice extends Entity
     private $invoiceImage;
     private $expenseId;
 
+    public function __construct($array=null)
+    {
+        if(is_array($array)){
+            $this->hydrate($array);
+        }
+    }
+
     /**
      * @return mixed
      */

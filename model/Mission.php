@@ -13,6 +13,13 @@ class Mission extends Entity
     private $customerId;
     private $userEmail;
 
+    public function __construct($array=null)
+    {
+        if(is_array($array)){
+            $this->hydrate($array);
+        }
+    }
+
     /**
      * @return mixed
      */

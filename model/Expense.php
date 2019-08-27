@@ -18,6 +18,19 @@ class Expense extends Entity
     private $expenseDistance;
     private $expenseRefounded;
     private $missionId;
+    private $missionName;
+    private $customerLastName;
+    private $customerFirstName;
+    private $societyName;
+    private $userEmail;
+
+
+    public function __construct($array=null)
+    {
+        if(is_array($array)){
+            $this->hydrate($array);
+        }
+    }
 
     /**
      * @return mixed
@@ -179,5 +192,83 @@ class Expense extends Entity
         $this->missionId = $missionId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMissionName()
+    {
+        return $this->missionName;
+    }
 
+    /**
+     * @param mixed $missionName
+     */
+    public function setMissionName($missionName)
+    {
+        $this->missionName = $missionName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerLastName()
+    {
+        return $this->customerLastName;
+    }
+
+    /**
+     * @param mixed $customerLastName
+     */
+    public function setCustomerLastName($customerLastName)
+    {
+        $this->customerLastName = $customerLastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerFirstName()
+    {
+        return $this->customerFirstName;
+    }
+
+    /**
+     * @param mixed $customerFirstName
+     */
+    public function setCustomerFirstName($customerFirstName)
+    {
+        $this->customerFirstName = $customerFirstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSocietyName()
+    {
+        return $this->societyName;
+    }
+
+    /**
+     * @param mixed $societyName
+     */
+    public function setSocietyName($societyName)
+    {
+        $this->societyName = $societyName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserEmail()
+    {
+        return $this->userEmail;
+    }
+
+    /**
+     * @param mixed $userEmail
+     */
+    public function setUserEmail($userEmail)
+    {
+        $this->userEmail = $userEmail;
+    }
 }

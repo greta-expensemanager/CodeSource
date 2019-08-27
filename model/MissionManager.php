@@ -8,7 +8,7 @@
 
 class MissionManager extends Manager
 {
-    public function read(Int $missionId){
+    public function read($missionId){
         $sql = "SELECT * FROM mission WHERE missionId = :missionId";
         $r = $this->db->prepare($sql);
         $r->bindValue(':missionId',$missionId,PDO::PARAM_INT);
@@ -20,6 +20,21 @@ class MissionManager extends Manager
         }else{
             return False;
         }
+    }
+
+    public function readAll(){
+        $missions = [];
+
+        $sql = "SELECT * FROM mission";
+        $results = $this->db->query($sql);
+        $missionsData = $results->fetchAll();
+
+        foreach ($missionsData as $missionData){
+            $missions[] = new Mission($missionData);
+        }
+
+        return $missions;
+
     }
 
     public function readAllMissions(User $user){

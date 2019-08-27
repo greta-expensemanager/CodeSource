@@ -8,8 +8,8 @@
 
 class ExpenseManager extends Manager
 {
-    public function read(Int $expenseId){
-        $sql = "SELECT * FROM expense WHERE expenseId = :expenseId";
+    public function readExpenseDetails($expenseId){
+        $sql = "SELECT * FROM listexpensescommercial WHERE expenseId = :expenseId";
         $r = $this->db->prepare($sql);
         $r->bindValue(':expenseId',$expenseId,PDO::PARAM_INT);
         $ok = $r->execute();
@@ -20,6 +20,22 @@ class ExpenseManager extends Manager
         }else{
             return False;
         }
+    }
+
+    public function readAllExpensesCommercial($userEmail){
+        $expenses = [];
+
+        $sql = "SELECT * FROM listexpensescommercial WHERE userEmail = :userEmail";
+        $r = $this->db->prepare($sql);
+        $r->bindValue(':userEmail',$userEmail,PDO::PARAM_STR);
+        $r->execute();
+        $expensesData = $r->fetchAll();
+
+        foreach ($expensesData as $expenseData){
+            $expenses[] = new Expense($expenseData);
+        }
+
+        return $expenses;
     }
 
     public function readAllExpenses(Mission $mission){

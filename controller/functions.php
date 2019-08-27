@@ -11,51 +11,36 @@ function __autoload($className){
     if(file_exists($classDir)){
         require_once ($classDir);
     }else{
-        echo "le fichier $classDir n'existe pas";
+        echo "The file $classDir doesn't exist";
     }
 }
 
-function tableauAdapte($data)
-{
-    // Adapte les données pour l'affichage
-    $tableauAdapte = [];
-    foreach ($data as $ligne) {
-        $tableauAdapte[] = [
-            'Supprimer' => '<input type="checkbox" name="idClient" value="' . $ligne['idClient'] . '"/>',
-            'Nom Prenom' => '<a href="update.php?id=' . $ligne['idClient'] . '">' . $ligne['nom'] . ' ' . $ligne['prenom'] . '</a>'
-        ];
-    }
-    return $tableauAdapte;
-}
+function viewTable($data){
+    // Opening of table and tbody
+    $html = '<table><tbody>';
 
+    // Loop on all rows of the table
+    foreach($data as $expenseId => $line){
+        $html .= "<tr><a href='expense.php?expenseId=$expenseId'>";
 
-function afficheTableau($data){
-    // Ouverture du tableau html et entete
-    $html = '<table>';
-    $html .= '<thead><tr>';
-
-    // Boucle sur les indices du premier tableau
-    foreach ($data[0] as $key => $value){
-        $html .= "<th>$key</th>";
-    }
-
-    // Fermeture entete html
-    $html .= '</tr></thead>';
-
-    // Ouverture du tbody
-    $html .= '<tbody>';
-
-    // boucle sur toutes le ligne du tableau
-    foreach($data as $ligne){
-        $html .= '<tr>';
-        foreach($ligne as $celulle){
-            $html .= "<td>$celulle</td>";
+        foreach($line as $key => $cell){
+            $html .= "$key : $cell<br/>";
         }
-        $html .= '</tr>';
+        $html .= '</a></tr><hr/>';
     }
 
-    // Ferme le tbody et table
+    // Closing of tbody and table
     $html .= '</tbody></table>';
 
     return $html;
+}
+
+function adaptSelect($missions)
+{
+    $array=[];
+    foreach ($missions as $mission)
+    {
+        $array[$mission->getMissionId()] = $mission->getMissionName();
+    }
+    return $array;
 }

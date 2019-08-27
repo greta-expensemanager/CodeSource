@@ -10,8 +10,15 @@ class User extends Entity
 {
     private $userEmail;
     private $userPassword;
-    private $usertype;
+    private $userType;
     private $societySiret;
+
+    public function __construct($array=null)
+    {
+        if(is_array($array)){
+            $this->hydrate($array);
+        }
+    }
 
     /**
      * @return mixed
@@ -48,17 +55,17 @@ class User extends Entity
     /**
      * @return mixed
      */
-    public function getUsertype()
+    public function getUserType()
     {
-        return $this->usertype;
+        return $this->userType;
     }
 
     /**
-     * @param mixed $usertype
+     * @param mixed $userType
      */
-    public function setUsertype($usertype)
+    public function setUserType($userType)
     {
-        $this->usertype = $usertype;
+        $this->userType = $userType;
     }
 
     /**
