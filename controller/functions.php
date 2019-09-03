@@ -35,12 +35,19 @@ function viewTable($data){
     return $html;
 }
 
-function adaptSelect($missions)
-{
+function adaptSelect($missions){
     $array=[];
     foreach ($missions as $mission)
     {
         $array[$mission->getMissionId()] = $mission->getMissionName();
     }
     return $array;
+}
+
+function footerButtons($userEmail){
+
+    $html = '<div class="footer"><button id="footerButton" onClick="window.location.href=\'listExpense.php?userEmail='.$userEmail.'\'">Liste</button>';
+    $html .= '<button id="footerButton" onClick="window.location.href=\'parameters.php?userEmail='.$userEmail.'\'">Paramètres</button></div>';
+
+    return $html;
 }

@@ -7,7 +7,6 @@ require_once('../model/Expense.php');
 require_once('../model/ExpenseManager.php');
 
 $expenseManager = new ExpenseManager();
-$userEmail = $_GET['userEmail'];
 
 // List of expenses
 $expenses = $expenseManager->readAllExpensesCommercial($_GET['userEmail']);
@@ -22,7 +21,6 @@ function adapt($expenses)
 
     foreach ($expenses as $expense)
     {
-
         $id = $expense->getExpenseId();
         $customerLastName = strtoupper($expense->getCustomerLastName());
         $customerFirstName = $expense->getCustomerFirstName();
@@ -36,7 +34,6 @@ function adapt($expenses)
             'Total' => $expense->getExpenseTotal()
         ];
     }
-
     return $array;
 }
 
@@ -52,19 +49,17 @@ function adapt($expenses)
         <style>@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap&subset=latin-ext');</style>
     </head>
     <body>
-        <h1>Notes de frais</h1>
-        <button class="newExpense" onClick="window.location.href='expense.php'" name="newExpense">+</button>
-
-        <?php
-
-        if(isset($expensesAdapt)){
-            echo viewTable($expensesAdapt);
-        }else{
-            echo "Pas d'expenses";
-        }
-        ?>
-        <div>
-            <?php include("view/footerButton.php?userEmail=$userEmail"); ?>
+        <div class="header">Notes de frais</div>
+        <div class="content">
+            <button class="newExpense" onClick="window.location.href='expense.php'" name="newExpense">+</button>
+            <?php
+            if(isset($expensesAdapt)){
+                echo viewTable($expensesAdapt);
+            }else{
+                echo "Pas d'expenses";
+            }
+            ?>
         </div>
+        <?php echo footerButtons($_GET['userEmail']); ?>
     </body>
 </html>

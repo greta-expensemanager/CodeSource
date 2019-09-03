@@ -6,38 +6,6 @@ require_once('../model/Manager.php');
 require_once('../model/Expense.php');
 require_once('../model/ExpenseManager.php');
 
-$expenseManager = new ExpenseManager();
-
-// List of expenses
-$expenses = $expenseManager->readAllExpensesCommercial($_GET['userEmail']);
-
-if(count($expenses)>0){
-    $expensesAdapt = adapt($expenses);
-}
-
-function adapt($expenses)
-{
-    $array=[];
-
-    foreach ($expenses as $expense)
-    {
-
-        $id = $expense->getExpenseId();
-        $customerLastName = strtoupper($expense->getCustomerLastName());
-        $customerFirstName = $expense->getCustomerFirstName();
-        $societyName = $expense->getSocietyName();
-
-        $array[$id] = [
-            'Date' => $expense->getExpenseDate(),
-            'Mission' => $expense->getMissionName(),
-            'Customer' => "$customerLastName $customerFirstName - $societyName",
-            'Type' => $expense->getExpenseType(),
-            'Total' => $expense->getExpenseTotal()
-        ];
-    }
-
-    return $array;
-}
 
 ?>
 <!doctype html>
@@ -51,17 +19,16 @@ function adapt($expenses)
         <style>@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap&subset=latin-ext');</style>
     </head>
     <body>
-        <h1>Notes de frais</h1>
-        <button onClick="window.location.href='expense.php'" name="newExpense">+</button>
-
-        <?php
-
-        if(isset($expensesAdapt)){
-            echo viewTable($expensesAdapt);
-        }else{
-            echo "Pas d'expenses";
-        }
-        ?>
-
+        <div class="header">Paramètres</div>
+        <div class="content">
+            <div id="parameters">
+                <a href="parameters.php?userEmail="><img src="../public/images/profile.svg"></a>
+                <a><img src="../public/images/clients.svg"></a>
+            </div>
+            <div id="parameters">
+                <a><img src="../public/images/stats.svg"></a>
+                <a><img src="../public/images/logout.svg"></a>
+            </div>
+        </div>
     </body>
 </html>

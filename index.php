@@ -1,13 +1,11 @@
 <?php
 
-require_once ('controller/functions.php');
+require_once('controller/functions.php');
 require_once('model/Form.php');
 require_once('model/Entity.php');
 require_once('model/Manager.php');
 require_once('model/User.php');
 require_once('model/UserManager.php');
-
-
 
 $error= '';
 

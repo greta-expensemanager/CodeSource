@@ -1,0 +1,305 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- phpMyAdmin SQL Dump\
+-- version 4.8.5\
+-- https://www.phpmyadmin.net/\
+--\
+-- Host: localhost:8889\
+-- Generation Time: Sep 03, 2019 at 05:44 AM\
+-- Server version: 5.7.25\
+-- PHP Version: 7.3.1\
+\
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";\
+SET time_zone = "+00:00";\
+\
+--\
+-- Database: `expense_manager`\
+--\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `CUSTOMER`\
+--\
+\
+CREATE TABLE `CUSTOMER` (\
+  `customerId` int(11) NOT NULL,\
+  `customerLastName` varchar(50) NOT NULL,\
+  `customerFirstName` varchar(50) NOT NULL,\
+  `societySiret` varchar(50) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `CUSTOMER`\
+--\
+\
+INSERT INTO `CUSTOMER` (`customerId`, `customerLastName`, `customerFirstName`, `societySiret`) VALUES\
+(1, 'Gates', 'Bill', '32773318400516'),\
+(2, 'Jobs', 'Steve', '32212091600208'),\
+(3, 'Thorval', 'Linus', '42968791600016'),\
+(4, 'Dorff', 'Stephane', '19330023300031'),\
+(5, 'Labat', 'Jerome', '19350030300030'),\
+(6, 'Anselmo', 'Philippe', '19560026700049'),\
+(7, 'Young', 'Andr\'e9', '19640055000022'),\
+(8, 'Andrieu', 'Patrick', '34276245700014'),\
+(13, 'Suarez', 'Rapha\'ebl', '\uc0\u8206 41481521700016'),\
+(14, 'Doux', 'Leyla', '\uc0\u8206 34741001100063');\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `EXPENSE`\
+--\
+\
+CREATE TABLE `EXPENSE` (\
+  `expenseId` int(11) NOT NULL,\
+  `expenseType` varchar(50) NOT NULL,\
+  `expenseDate` date NOT NULL,\
+  `expenseStatus` varchar(50) NOT NULL DEFAULT 'En attente',\
+  `expenseTotal` float NOT NULL,\
+  `expenseRefounded` float NOT NULL DEFAULT '0',\
+  `expenseDepart` varchar(50) DEFAULT NULL,\
+  `expenseArrival` varchar(50) DEFAULT NULL,\
+  `expenseDistance` float DEFAULT NULL,\
+  `missionId` int(11) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `EXPENSE`\
+--\
+\
+INSERT INTO `EXPENSE` (`expenseId`, `expenseType`, `expenseDate`, `expenseStatus`, `expenseTotal`, `expenseRefounded`, `expenseDepart`, `expenseArrival`, `expenseDistance`, `missionId`) VALUES\
+(1, 'Trajet', '2019-06-21', 'En attente', 35, 0, 'Pau', 'Biarritz', 115, 1),\
+(2, 'Essence', '2019-05-16', 'En attente', 85, 0, NULL, NULL, 535, 2),\
+(3, 'H\'f4tel', '2019-05-17', 'En attente', 75, 0, NULL, NULL, NULL, 2),\
+(4, 'Trajet', '2019-05-16', 'En attente', 47, 0, 'Entr\'e9e Autoroute Pau', 'Sortie Autoroute Nantes', 535, 2),\
+(5, 'Essence', '2019-06-10', 'En attente', 31, 0, NULL, NULL, NULL, 4),\
+(6, 'Essence', '2019-06-10', 'En attente', 31, 0, NULL, NULL, 40, 4),\
+(7, 'H\'f4tel', '2019-06-22', 'En attente', 75, 0, NULL, NULL, NULL, 8),\
+(8, 'Trajet', '2019-06-23', 'En attente', 35, 0, 'Entr\'e9e Autoroute Biarritz', 'Sortie Autoroute Pau', 115, 8),\
+(9, 'Essence', '2019-06-23', 'En attente', 43, 0, NULL, NULL, 230, 8);\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `INVOICE`\
+--\
+\
+CREATE TABLE `INVOICE` (\
+  `expenseId` int(11) NOT NULL,\
+  `invoiceId` int(11) NOT NULL,\
+  `invoiceImage` varchar(250) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Stand-in structure for view `listexpensescommercial`\
+-- (See below for the actual view)\
+--\
+CREATE TABLE `listexpensescommercial` (\
+`expenseId` int(11)\
+,`userEmail` varchar(50)\
+,`expenseType` varchar(50)\
+,`expenseDate` date\
+,`missionName` varchar(50)\
+,`customerLastName` varchar(50)\
+,`customerFirstName` varchar(50)\
+,`societyName` varchar(50)\
+,`expenseTotal` float\
+);\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `MISSION`\
+--\
+\
+CREATE TABLE `MISSION` (\
+  `missionId` int(11) NOT NULL,\
+  `missionName` varchar(50) NOT NULL,\
+  `userEmail` varchar(50) NOT NULL,\
+  `customerId` int(11) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `MISSION`\
+--\
+\
+INSERT INTO `MISSION` (`missionId`, `missionName`, `userEmail`, `customerId`) VALUES\
+(1, 'Formation Microsoft', 'olivier@emanager.fr', 1),\
+(2, 'Formation Apple', 'severine@emanager.fr', 2),\
+(3, 'Formation Ubuntu', 'olivier@emanager.fr', 3),\
+(4, 'Formation Support Technique', 'severine@emanager.fr', 4),\
+(5, 'Formation SQL', 'olivier@emanager.fr', 5),\
+(6, 'Formation Javascript', 'olivier@emanager.fr', 6),\
+(7, 'Formation PHP', 'severine@emanager.fr', 7),\
+(8, 'Formation RGPD', 'olivier@emanager.fr', 8);\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `SOCIETY`\
+--\
+\
+CREATE TABLE `SOCIETY` (\
+  `societySiret` varchar(50) NOT NULL,\
+  `societyName` varchar(50) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `SOCIETY`\
+--\
+\
+INSERT INTO `SOCIETY` (`societySiret`, `societyName`) VALUES\
+('19330023300031', 'GRETA Nord'),\
+('19350030300030', 'GRETA Est-Bretagne'),\
+('19560026700049', 'GRETA Bretagne Sud'),\
+('19640055000022', 'GRETA Sud'),\
+('19666874956157', 'ExpenseManager'),\
+('32212091600208', 'Apple'),\
+('32773318400516', 'Microsoft'),\
+('34276245700014', 'Helioparc'),\
+('42968791600016', 'Linux'),\
+('\uc0\u8206 34741001100063', 'GIFI'),\
+('\uc0\u8206 41481521700016', 'Safran');\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `USER`\
+--\
+\
+CREATE TABLE `USER` (\
+  `userEmail` varchar(50) NOT NULL,\
+  `userPassword` varchar(50) NOT NULL,\
+  `userType` varchar(50) NOT NULL,\
+  `societySiret` varchar(50) NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `USER`\
+--\
+\
+INSERT INTO `USER` (`userEmail`, `userPassword`, `userType`, `societySiret`) VALUES\
+('claudia@emanager.fr', 'claudia', 'commercial', '19666874956157'),\
+('david@emanager.fr', 'david', 'commercial', '19666874956157'),\
+('olivier@emanager.fr', 'olivier', 'commercial', '19330023300031'),\
+('severine@emanager.fr', 'severine', 'commercial', '19666874956157');\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Structure for view `listexpensescommercial`\
+--\
+DROP TABLE IF EXISTS `listexpensescommercial`;\
+\
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `listexpensescommercial`  AS  select `e`.`expenseId` AS `expenseId`,`m`.`userEmail` AS `userEmail`,`e`.`expenseType` AS `expenseType`,`e`.`expenseDate` AS `expenseDate`,`m`.`missionName` AS `missionName`,`c`.`customerLastName` AS `customerLastName`,`c`.`customerFirstName` AS `customerFirstName`,`s`.`societyName` AS `societyName`,`e`.`expenseTotal` AS `expenseTotal` from (((`expense` `e` join `mission` `m` on((`e`.`missionId` = `m`.`missionId`))) join `customer` `c` on((`m`.`customerId` = `c`.`customerId`))) join `society` `s` on((`c`.`societySiret` = `s`.`societySiret`))) ;\
+\
+--\
+-- Indexes for dumped tables\
+--\
+\
+--\
+-- Indexes for table `CUSTOMER`\
+--\
+ALTER TABLE `CUSTOMER`\
+  ADD PRIMARY KEY (`customerId`),\
+  ADD KEY `CUSTOMER_SOCIETY_FK` (`societySiret`);\
+\
+--\
+-- Indexes for table `EXPENSE`\
+--\
+ALTER TABLE `EXPENSE`\
+  ADD PRIMARY KEY (`expenseId`),\
+  ADD KEY `EXPENSE_MISSION_FK` (`missionId`);\
+\
+--\
+-- Indexes for table `INVOICE`\
+--\
+ALTER TABLE `INVOICE`\
+  ADD PRIMARY KEY (`expenseId`,`invoiceId`) USING BTREE;\
+\
+--\
+-- Indexes for table `MISSION`\
+--\
+ALTER TABLE `MISSION`\
+  ADD PRIMARY KEY (`missionId`),\
+  ADD KEY `MISSION_USER_FK` (`userEmail`),\
+  ADD KEY `MISSION_CUSTOMER0_FK` (`customerId`);\
+\
+--\
+-- Indexes for table `SOCIETY`\
+--\
+ALTER TABLE `SOCIETY`\
+  ADD PRIMARY KEY (`societySiret`);\
+\
+--\
+-- Indexes for table `USER`\
+--\
+ALTER TABLE `USER`\
+  ADD PRIMARY KEY (`userEmail`),\
+  ADD KEY `USER_SOCIETY_FK` (`societySiret`);\
+\
+--\
+-- AUTO_INCREMENT for dumped tables\
+--\
+\
+--\
+-- AUTO_INCREMENT for table `CUSTOMER`\
+--\
+ALTER TABLE `CUSTOMER`\
+  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;\
+\
+--\
+-- AUTO_INCREMENT for table `EXPENSE`\
+--\
+ALTER TABLE `EXPENSE`\
+  MODIFY `expenseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;\
+\
+--\
+-- AUTO_INCREMENT for table `MISSION`\
+--\
+ALTER TABLE `MISSION`\
+  MODIFY `missionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;\
+\
+--\
+-- Constraints for dumped tables\
+--\
+\
+--\
+-- Constraints for table `CUSTOMER`\
+--\
+ALTER TABLE `CUSTOMER`\
+  ADD CONSTRAINT `CUSTOMER_SOCIETY_FK` FOREIGN KEY (`societySiret`) REFERENCES `SOCIETY` (`societySiret`);\
+\
+--\
+-- Constraints for table `EXPENSE`\
+--\
+ALTER TABLE `EXPENSE`\
+  ADD CONSTRAINT `EXPENSE_MISSION_FK` FOREIGN KEY (`missionId`) REFERENCES `MISSION` (`missionId`);\
+\
+--\
+-- Constraints for table `INVOICE`\
+--\
+ALTER TABLE `INVOICE`\
+  ADD CONSTRAINT `INVOICE_EXPENSE_FK` FOREIGN KEY (`expenseId`) REFERENCES `EXPENSE` (`expenseId`);\
+\
+--\
+-- Constraints for table `MISSION`\
+--\
+ALTER TABLE `MISSION`\
+  ADD CONSTRAINT `MISSION_CUSTOMER0_FK` FOREIGN KEY (`customerId`) REFERENCES `CUSTOMER` (`customerId`),\
+  ADD CONSTRAINT `MISSION_USER_FK` FOREIGN KEY (`userEmail`) REFERENCES `USER` (`userEmail`);\
+\
+--\
+-- Constraints for table `USER`\
+--\
+ALTER TABLE `USER`\
+  ADD CONSTRAINT `USER_SOCIETY_FK` FOREIGN KEY (`societySiret`) REFERENCES `SOCIETY` (`societySiret`);\
+}

@@ -59,7 +59,10 @@ $form->submit('btnSave', $txtBtn);
         <style>@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap&subset=latin-ext');</style>
     </head>
     <body>
-        <h1><?php echo $txtBtn;?> une note de frais</h1>
-        <?php echo $form->render();?>
+        <div class="header"><?php echo $txtBtn;?></div>
+        <div class="content">
+            <?php echo $form->render();?>
+        </div>
+
     </body>
 </html>
